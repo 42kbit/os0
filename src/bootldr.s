@@ -47,16 +47,28 @@ main:
 	movb $0, %dh
 	movb %ds:(disknum), %dl
 	int $0x13
+	
+	movb $0x0, %ah
+	movb $0x3, %al
+	int $0x10
 
 	cli 
 	lgdt (gdt_desc)
 	movl %cr0, %eax
 	or $1, %eax
 	movl %eax, %cr0
-	jmp $CODE_SEG, $prot_start
+	ljmp $CODE_SEG, $prot_start
 
 .code32
 prot_start:
+	movw $DATA_SEG, %ax
+	movw %ax, %ds
+	movw %ax, %ss
+	movw %ax, %es
+	movw %ax, %fs
+	movw %ax, %gs
+	movl $0x90000, %ebp
+	movl %ebp, %esp
 	jmp $CODE_SEG, $KERNEL_ENT_ADDR
 
 .= _start + 510
