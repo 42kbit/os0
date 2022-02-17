@@ -7,7 +7,7 @@ LD_FLAGS_NO_DFA = -m elf_i386 --oformat binary # no default address
 LD_FLAGS = $(LD_FLAGS_NO_DFA) -Ttext 0x1000
 
 ${BUILD_DIR}/os.bin: ${BUILD_DIR}/kernel_entry.bin ${BUILD_DIR}/bootldr.bin
-	cat ${BUILD_DIR}/bootldr.bin ${BUILD_DIR}/kernel_entry.bin >> ${BUILD_DIR}/os.bin
+	cat ${BUILD_DIR}/bootldr.bin ${BUILD_DIR}/kernel_entry.bin > ${BUILD_DIR}/os.bin
 
 ${BUILD_DIR}/kernel_entry.bin: ${BUILD_DIR}/kernel_entry.o $(BUILD_DIR)/main.o
 	ld $(LD_FLAGS) -o ${BUILD_DIR}/kernel_entry.bin ${BUILD_DIR}/kernel_entry.o $(BUILD_DIR)/main.o

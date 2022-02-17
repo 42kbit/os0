@@ -1,7 +1,7 @@
 .code16
 .globl _start
 _start: 
-	jmp main
+	jmp %cs:main
 
 gdt_start:
 null_desc:
